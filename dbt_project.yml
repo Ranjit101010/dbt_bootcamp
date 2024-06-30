@@ -32,13 +32,17 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   dbt_bootcamp:
     # Config indicated by + and applies to all files under models/example/
-    staging:
+    staging:  # this is .sql models folder name
       +enabled: true
       +materialized: table
       +schema: stg_data # we are going to create this dataset
-    warehouse:
+    warehouse: # this is .sql models folder name
       +enabled: true
       +materialized: table
       +schema: dwh_data  # we are going to create this dataset 
       dim_date:
-        +materialized: view # dim_date query is saved as view in datset in bigquery
+        +materialized: view # dim_date query is saved as view in dataset in bigquery
+    analytics_obt:  # this is .sql models folder name
+      +enabled: true
+      +materialized: table
+      +schema: obt_data

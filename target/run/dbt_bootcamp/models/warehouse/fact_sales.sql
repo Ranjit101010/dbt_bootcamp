@@ -1,9 +1,15 @@
-{{ config (
-    partition_by = {
-        'field' : 'order_date',
-        'data_type' : 'date'
-    }
-)}}
+
+  
+    
+
+    create or replace table `ranjit-1610110`.`dbt_staging_dwh_data`.`fact_sales`
+      
+    partition by order_date
+    
+
+    OPTIONS()
+    as (
+      
 
 with source as (
     select 
@@ -22,8 +28,8 @@ with source as (
         date(o.order_date) as order_date,
         o.shipped_date,
         o.paid_date,
-    from {{ ref('stg_orders') }} o
-    left join {{ ref('stg_order_details') }} od
+    from `ranjit-1610110`.`dbt_staging_stg_data`.`stg_orders` o
+    left join `ranjit-1610110`.`dbt_staging_stg_data`.`stg_order_details` od
     on o.id = od.id
     where od.order_id is not null
 ),
@@ -38,3 +44,5 @@ select
 * except(rn) 
 from unique_source
 where rn = 1
+    );
+  
